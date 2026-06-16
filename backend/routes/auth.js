@@ -9,16 +9,24 @@ function generateOTP() { return Math.floor(100000 + Math.random() * 900000).toSt
 function otpExpiry() { return new Date(Date.now() + 10 * 60 * 1000); }
 
 async function sendOTP(contact, otp) {
-  console.log(`\n📧 OTP for ${contact}: ${otp}\n`);
+  console.log(`\n📧 Attempting to send OTP to ${contact}...`);
   try {
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: 'CoreInventory <onboarding@resend.dev>',
-      to: process.env.RESEND_TEST_EMAIL || contact,
+      to: contact,
       subject: `Your CoreInventory OTP: ${otp}`,
       html: `<div style="font-family:monospace;max-width:480px;margin:0 auto;background:#0a0a0f;color:#f5f3ee;padding:40px;"><div style="font-size:20px;font-weight:900;margin-bottom:8px;"><span style="color:#c8f53c">●</span> CoreInventory</div><div style="color:#6b6860;font-size:12px;margin-bottom:32px;">Stock Management System</div><div style="font-size:13px;color:#aaa;margin-bottom:16px;">Your one-time password:</div><div style="background:#1e1e24;border:1px solid #2a2a30;padding:24px;text-align:center;margin-bottom:24px;"><div style="font-size:48px;font-weight:900;letter-spacing:12px;color:#c8f53c;">${otp}</div></div><div style="font-size:12px;color:#555;">Expires in <strong style="color:#f5f3ee;">10 minutes</strong>.</div></div>`
     });
-    console.log('✅ Email sent');
-  } catch(err) { console.error('Email error:', err.message); }
+
+    if (error) {
+      console.error('❌ Resend API Error:', error);
+    } else {
+      console.log('✅ Resend API Success:', data);
+    }
+  } catch(err) { 
+    console.error('❌ Unexpected Error during email send:', err.message); 
+  }
+  console.log(`Terminal fallback — OTP for ${contact}: ${otp}\n`);
 }
 
 async function initUsersTable() {

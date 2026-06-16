@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="MaintSync Class Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- User -->
+        <mxCell id="user" value="User&#xa;----------------&#xa;userId: int&#xa;name: string&#xa;email: string&#xa;password: string&#xa;role: enum" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="350" y="20" width="200" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin -->
+        <mxCell id="admin" value="Admin&#xa;----------------&#xa;manageUsers()&#xa;createTeam()" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="100" y="200" width="180" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Technician -->
+        <mxCell id="tech" value="Technician&#xa;----------------&#xa;updateRequestStatus()&#xa;viewAssignments()" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="350" y="200" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Employee -->
+        <mxCell id="emp" value="Employee&#xa;----------------&#xa;createRequest()&#xa;trackRequest()" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="650" y="200" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Team -->
+        <mxCell id="team" value="Team&#xa;----------------&#xa;teamId: int&#xa;teamName: string&#xa;companyName: string" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="50" y="400" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Equipment -->
+        <mxCell id="equip" value="Equipment&#xa;----------------&#xa;equipmentId: int&#xa;serialNumber: string&#xa;category: string&#xa;status: string" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="300" y="400" width="220" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- MaintenanceRequest -->
+        <mxCell id="req" value="MaintenanceRequest&#xa;----------------&#xa;requestId: int&#xa;priority: int&#xa;status: string&#xa;notes: string&#xa;scheduledStart: datetime" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="600" y="400" width="250" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- WorkCenter -->
+        <mxCell id="wc" value="WorkCenter&#xa;----------------&#xa;workCenterId: int&#xa;name: string&#xa;location: string" style="shape=rectangle" vertex="1" parent="1">
+          <mxGeometry x="900" y="400" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Inheritance -->
+        <mxCell id="e1" style="endArrow=block" edge="1" parent="1" source="admin" target="user"/>
+        <mxCell id="e2" style="endArrow=block" edge="1" parent="1" source="tech" target="user"/>
+        <mxCell id="e3" style="endArrow=block" edge="1" parent="1" source="emp" target="user"/>
+
+        <!-- Relationships -->
+        <mxCell id="e4" value="belongs" style="endArrow=open" edge="1" parent="1" source="tech" target="team"/>
+        <mxCell id="e5" value="assigned" style="endArrow=open" edge="1" parent="1" source="equip" target="tech"/>
+        <mxCell id="e6" value="linked" style="endArrow=open" edge="1" parent="1" source="req" target="equip"/>
+        <mxCell id="e7" value="created by" style="endArrow=open" edge="1" parent="1" source="req" target="emp"/>
+        <mxCell id="e8" value="assigned to" style="endArrow=open" edge="1" parent="1" source="req" target="tech"/>
+        <mxCell id="e9" value="optional" style="endArrow=open" edge="1" parent="1" source="req" target="wc"/>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
